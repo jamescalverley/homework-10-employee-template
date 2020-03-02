@@ -15,34 +15,128 @@
 
 const inquirer = require("inquirer");
 
-
 let ID = 1;
+let employeeList = [];
 
+
+//* CLASSES ====================
 class Employee {
-    constructor( role, name, email){
+    constructor( name, role, email ){
         this.id = ID++;
-        this.role = role;
         this.name = name;
+        this.role = role;
         this.email = email;
     }
 };
 
 class Manager extends Employee {
-    constructor( name, email, officeNumber){
-        super('Manager', name, email);
+    constructor( name, email, officeNumber ){
+        super(name, 'Manager', email);
         this.officeNumber = officeNumber;
-        this.directReports = []; //! is this needed??
     }
 };
-class Engineer {};
-class Intern {};
+
+class Engineer extends Employee {
+    constructor( name, email, gitHub ){
+        super( name, 'Engineer', email )
+        this.gitHub = gitHub;
+    }
+};
+
+class Intern extends Employee {
+    constructor ( name, email, school ){
+        super( name, 'Intern', email )
+        this.school = school;
+    }
+};
 
 
-let employeeOne = new Employee ('CEO', 'Joe', 'joe@gmail.com');
+//* FUNCTIONS FOR GETTING INFO ==================
+//? need to add in loop that takes the required number of employees and runs the loop that many times
 
-console.log(Employee);
-console.log("This is all the info:", employeeOne);
+async function getEngineerInfo( runTimes ){
+    let num = 0;
+    while( num < runTimes){
+        const resp = await inquirer.prompt([
+            {
+                name: 'name',
+                message: "ENGINEER - What is the employee's name?",
+                type: 'input'
+            },
+            {
+                name: 'email',
+                message: "ENGINEER - What is the employee's email address?",
+                type: 'input'
+            },
+            {
+                name: 'gitHub',
+                message: "ENGINEER - What is the employee's gitHub profile?",
+                type: 'input'
+            },
+        ]);
+        num++
+        let newEngineer = new Engineer ( resp.name, resp.email, resp.gitHub );
+        employeeList.push(newEngineer);
 
+        console.log("Employee List", employeeList)
+    };
+    console.log("FINISHED RUNNING");
+};
+
+getEngineerInfo(2);
+
+
+
+//* TESTING ====================
+// let employeeOne = new Employee ('Joe', 'CEO', 'joe@gmail.com');
+// console.log("Employee 1:", employeeOne);
+
+// let engineerOne = new Engineer ('Daniel', 'daniel@gmail.com', 'githubUserName');
+// console.log("Engineer 1:", engineerOne);
+
+// let internOne = new Intern ('Chris', 'chris@gmail.com', 'UofT');
+// console.log("Intern 1:", internOne);
+
+//* TESTING >>> Writing to class ===============
+
+class Test {
+    constructor( name, location ){
+        this.name = name;
+        this.location = location;
+    }
+
+};
+  
+async function getUserInfo(){
+    while (1){
+        const response = await inquirer.prompt([
+            {
+                name: "name",
+                message: "What is your name?",
+                type: "input"
+
+            },
+            {
+                name: "location",
+                message: "What is your location?",
+                type: "input"
+            }
+
+        ])
+
+        let user = new Test ( response.name, response.location);
+        console.log(user);
+        console.log(user.name, "lives in", user.location);
+        employeeList.push(user);
+        console.log("Employee List:", employeeList)
+    }
+};
+
+//! testing
+//getUserInfo();
+  
+
+//* PROMPTS ====================
 async function main(){
 
     const response = await inquirer.prompt([
@@ -78,7 +172,8 @@ async function main(){
 
 }
 
-main();
+//! >>>>>>>> not calling main()
+// main();
 
 //! NEXT STEPS: 
 // add new employees to an array
@@ -96,34 +191,34 @@ main();
 // ? create new class with function to get the info using inquirer>>>
 
 //! not sure if this will work
-async function getEmail(){
-    await inquirer.prompt([
-        {
-            name: "email",
-            message: "What is the employee's email address?",
-            type: "input"
-        }
-    ])
-}
+// async function getEmail(){
+//     await inquirer.prompt([
+//         {
+//             name: "email",
+//             message: "What is the employee's email address?",
+//             type: "input"
+//         }
+//     ])
+// }
 
-class Employee {
-    constructor( role, name, email){
-        this.id = ID++;
-        this.role = role;
-        this.name = name;
-        this.email = email;
-    }
-        login(){
-            console.log(this.name, "just logged in")
-        }
+// class Employee {
+//     constructor( role, name, email){
+//         this.id = ID++;
+//         this.role = role;
+//         this.name = name;
+//         this.email = email;
+//     }
+//         login(){
+//             console.log(this.name, "just logged in")
+//         }
 
-};
+// };
 
-//? for number of employees needed, run:
+// //? for number of employees needed, run:
 
-let employee = new Employee ("VP", "Barry", "barry@gmail.com");
+// let employee = new Employee ("VP", "Barry", "barry@gmail.com");
 
-employee.login();
+// employee.login();
 
 
 
