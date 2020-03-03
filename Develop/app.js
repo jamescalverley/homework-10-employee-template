@@ -9,6 +9,8 @@
 // ? use map function on array >> have an array of objects >>> each object is an employee >>>> go through the array and forEach object, join to template
 // ? look at hot restaurant exercise for how to add dynamically add content to html section
 // ! TDD is a bonus but not necessary
+//! look at Handlebars activity for adding content to html templates
+
  
 
 // ---------------------------
@@ -60,17 +62,17 @@ async function getManagerInfo( runTimes ){
         const resp = await inquirer.prompt([
             {
                 name: 'name',
-                message: "MANAGER - What is the employee's name?",
+                message: "MANAGER - What is the manager's name?",
                 type: 'input'
             },
             {
                 name: 'email',
-                message: "MANAGER - What is the employee's email address?",
+                message: "MANAGER - What is the manager's email address?",
                 type: 'input'
             },
             {
                 name: 'officeNumber',
-                message: "MANAGER - What is the employee's office number?",
+                message: "MANAGER - What is the manager's office number?",
                 type: 'input'
             },
         ]);
@@ -139,170 +141,77 @@ async function getInternInfo( runTimes ){
     };
 };
 
-async function mainFn(){
-    await getManagerInfo();
 
+async function addEmployees(){
     const response = await inquirer.prompt([
         {
             name: 'employeeType',
             message: "What type of employee would you like to add to the team?",
             type: 'list',
-            choices: ['Engineer', 'Intern']
+            choices: ['Engineer', 'Intern', '---FINISH---']
         }
     ]);
 
     let employeeType = response.employeeType;
-    console.log("You picked", employeeType)
-
-    if( employeeType == "Intern"){
-        console.log("INTERN Fn");
-    } if( employeeType == "Engineer"){
-        console.log("ENGINEER Fn")
+    if(response.employeeType == "FINISH"){
+        process.exit(0);
     };
 
-    await getEngineerInfo();
-    await getInternInfo();
+    if( employeeType == "Engineer"){
+        let response = await inquirer.prompt([
+            {
+                name: "numEngineers",
+                message: "How many engineers would you like to add?",
+                type: "input"
+            }
+        ]);
+
+        let numEngineers = response.numEngineers;
+        console.log("Number of Engineers to add:",numEngineers);
+        await getEngineerInfo( numEngineers );
+        await addEmployees();
+
+    };
+    if( employeeType == "Intern"){
+        let response = await inquirer.prompt([
+            {
+                name: "numInterns",
+                message: "How many interns would you like to add?",
+                type: "input"
+            }
+        ]);
+
+        let numInterns = response.numInterns;
+        console.log("Number of Interns to add:", numInterns);
+        await getInternInfo( numInterns );
+        await addEmployees();
+    } 
 };
 
-//! NEXT STEPS  >>> if(engineer), prompt "how many to add?", then run getEngineerInfo function that many times
+async function mainFn(){
+    await getManagerInfo(1);
+    await addEmployees();
+
+       
+    
+
+};
+
 //! prompt at the end if they want to add any more or if they are finished
+
 
 mainFn();
 
 
 
-//* TESTING ====================
-// let employeeOne = new Employee ('Joe', 'CEO', 'joe@gmail.com');
-// console.log("Employee 1:", employeeOne);
 
-// let engineerOne = new Engineer ('Daniel', 'daniel@gmail.com', 'githubUserName');
-// console.log("Engineer 1:", engineerOne);
 
-// let internOne = new Intern ('Chris', 'chris@gmail.com', 'UofT');
-// console.log("Intern 1:", internOne);
-
-//* TESTING >>> Writing to class ===============
-
-class Test {
-    constructor( name, location ){
-        this.name = name;
-        this.location = location;
-    }
-
-};
   
-async function getUserInfo(){
-    while (1){
-        const response = await inquirer.prompt([
-            {
-                name: "name",
-                message: "What is your name?",
-                type: "input"
-
-            },
-            {
-                name: "location",
-                message: "What is your location?",
-                type: "input"
-            }
-
-        ])
-
-        let user = new Test ( response.name, response.location);
-        console.log(user);
-        console.log(user.name, "lives in", user.location);
-        employeeList.push(user);
-        console.log("Employee List:", employeeList)
-    }
-};
-
-//! testing
-//getUserInfo();
-  
-
-//* PROMPTS ====================
-async function main(){
-
-    const response = await inquirer.prompt([
-        {
-            name: "teamNum",
-            message: "How many employees are on your team?",
-            type: "input"
-        }
-    ]);
-
-    let teamMembers = response.teamNum;
-    console.log("team members:", teamMembers)
-
-    let num = 0;
-
-    while( num < teamMembers){
-        const resEmployee = await inquirer.prompt([
-            {
-                name: "name",
-                message: "What is the employee's name?",
-                type: "input"
-            }
-        ])
-
-        console.log("Name entered:", resEmployee.name);
-        employeeOne.name = resEmployee.name;
-
-        console.log("Changed employeeOne to:", employeeOne.name);
-        console.log("changed info:", employeeOne);
-        num++;
-
-    }
-
-}
-
-//! >>>>>>>> not calling main()
-// main();
 
 //! NEXT STEPS: 
 // add new employees to an array
 // create new employees based on template
 // write team to a JSON file
-
-//? when prompted ask what type of employee they want to add>> Manager, Engineer, Intern. Can only add one Manager so
-
-// while( new Manager.role = ""){
-    //prompt (Manager, Engineer, Intern)
-//} else {
-    // prompt (Engineer, Intern )
-//}
-
-// ? create new class with function to get the info using inquirer>>>
-
-//! not sure if this will work
-// async function getEmail(){
-//     await inquirer.prompt([
-//         {
-//             name: "email",
-//             message: "What is the employee's email address?",
-//             type: "input"
-//         }
-//     ])
-// }
-
-// class Employee {
-//     constructor( role, name, email){
-//         this.id = ID++;
-//         this.role = role;
-//         this.name = name;
-//         this.email = email;
-//     }
-//         login(){
-//             console.log(this.name, "just logged in")
-//         }
-
-// };
-
-// //? for number of employees needed, run:
-
-// let employee = new Employee ("VP", "Barry", "barry@gmail.com");
-
-// employee.login();
 
 
 
