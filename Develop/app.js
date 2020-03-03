@@ -54,6 +54,35 @@ class Intern extends Employee {
 //* FUNCTIONS FOR GETTING INFO ==================
 //? need to add in loop that takes the required number of employees and runs the loop that many times
 
+async function getManagerInfo( runTimes ){
+    let num = 0;
+    while( num < runTimes){
+        const resp = await inquirer.prompt([
+            {
+                name: 'name',
+                message: "MANAGER - What is the employee's name?",
+                type: 'input'
+            },
+            {
+                name: 'email',
+                message: "MANAGER - What is the employee's email address?",
+                type: 'input'
+            },
+            {
+                name: 'officeNumber',
+                message: "MANAGER - What is the employee's office number?",
+                type: 'input'
+            },
+        ]);
+        num++
+        let newManager = new Manager ( resp.name, resp.email, resp.officeNumber );
+        employeeList.push(newManager);
+
+        console.log("Employee List", employeeList)
+    };
+};
+
+
 async function getEngineerInfo( runTimes ){
     let num = 0;
     while( num < runTimes){
@@ -80,10 +109,65 @@ async function getEngineerInfo( runTimes ){
 
         console.log("Employee List", employeeList)
     };
-    console.log("FINISHED RUNNING");
 };
 
-getEngineerInfo(2);
+async function getInternInfo( runTimes ){
+    let num = 0;
+    while( num < runTimes){
+        const resp = await inquirer.prompt([
+            {
+                name: 'name',
+                message: "INTERN - What is the employee's name?",
+                type: 'input'
+            },
+            {
+                name: 'email',
+                message: "INTERN - What is the employee's email address?",
+                type: 'input'
+            },
+            {
+                name: 'school',
+                message: "INTERN - What school did the employee attend?",
+                type: 'input'
+            },
+        ]);
+        num++
+        let newIntern = new Intern ( resp.name, resp.email, resp.school );
+        employeeList.push(newIntern);
+
+        console.log("Employee List", employeeList)
+    };
+};
+
+async function mainFn(){
+    await getManagerInfo();
+
+    const response = await inquirer.prompt([
+        {
+            name: 'employeeType',
+            message: "What type of employee would you like to add to the team?",
+            type: 'list',
+            choices: ['Engineer', 'Intern']
+        }
+    ]);
+
+    let employeeType = response.employeeType;
+    console.log("You picked", employeeType)
+
+    if( employeeType == "Intern"){
+        console.log("INTERN Fn");
+    } if( employeeType == "Engineer"){
+        console.log("ENGINEER Fn")
+    };
+
+    await getEngineerInfo();
+    await getInternInfo();
+};
+
+//! NEXT STEPS  >>> if(engineer), prompt "how many to add?", then run getEngineerInfo function that many times
+//! prompt at the end if they want to add any more or if they are finished
+
+mainFn();
 
 
 
