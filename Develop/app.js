@@ -16,6 +16,7 @@
 // ---------------------------
 
 const inquirer = require("inquirer");
+const fs = require("fs");
 
 let ID = 1;
 let employeeList = [];
@@ -188,9 +189,15 @@ async function addEmployees(){
     } 
 };
 
+async function writeFile(){
+    let writeFile = fs.writeFileSync("team.json", JSON.stringify(employeeList));
+
+}
+
 async function mainFn(){
     await getManagerInfo(1);
     await addEmployees();
+    await writeFile();
 
        
     

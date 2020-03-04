@@ -1,0 +1,23 @@
+.jumbotron-fluid {
+    background-color: #e34d4d;
+    text-align: center;
+    color: white;
+}
+
+.main {
+    margin-left: 100px;
+    margin-right: 100px;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.card {
+    margin: 20px;
+}
+
+.card-header {
+    background-color: #346beb;
+    color: white;
+}
