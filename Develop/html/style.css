@@ -4,7 +4,7 @@
     color: white;
 }
 
-.main {
+#main {
     margin-left: 100px;
     margin-right: 100px;
     justify-content: center;
@@ -15,6 +15,7 @@
 
 .card {
     margin: 20px;
+    background-color: #ebeced;
 }
 
 .card-header {
