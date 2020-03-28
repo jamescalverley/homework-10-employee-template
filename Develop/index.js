@@ -52,39 +52,44 @@ const teamData = [
   }
 ];
 
-let managerData = [];
-let engineerData = [];
-let internData = [];
 
-let managerCard = '';
-let engineerCard = '';
-let internCard = '';
+let manager = {
+  managerData: [],
+  managerCard: '', 
+  managerList: []
+};
 
-let managerList = [];
-let engineerList = [];
-let internList = [];
+let engineer = {
+  engineerData: [],
+  engineerCard: '',
+  engineerList: []
+};
 
-let renderList = [];
+let intern = {
+  internData: [],
+  internCard: '',
+  internList: []
+};
 
 function sortCards(){
   console.log(teamData)
 
   teamData.forEach( result => {
     if( result.role == 'Manager'){
-      managerData.push(result);
+      manager.managerData.push(result);
     } if( result.role == 'Engineer'){
-      engineerData.push(result);
+      engineer.engineerData.push(result);
     } if( result.role == 'Intern'){
-      internData.push(result)
+      intern.internData.push(result)
     };
   })
 
-  console.log('[MANAGER DATA]', managerData)
-  console.log('[ENGINEER DATA]', engineerData)
-  console.log('[INTERN DATA]', internData)
+  console.log('[MANAGER DATA]', manager.managerData)
+  console.log('[ENGINEER DATA]', engineer.engineerData)
+  console.log('[INTERN DATA]', intern.internData)
 
-  managerData.forEach(result => {
-    managerCard += `
+  manager.managerData.forEach(result => {
+    manager.managerCard += `
       <div class="card" id="managerCard" style="width: 18rem;">
         <div class="card-header">
             <h4 class="name">${result.name}</h4>
@@ -99,14 +104,14 @@ function sortCards(){
         </div>
       </div>`
 
-      managerList.push(managerCard);
+      manager.managerList.push(manager.managerCard);
   });
   
-    console.log('[MANAGER LIST]', managerList)
-    document.getElementById('main').innerHTML += managerList;
+    console.log('[MANAGER LIST]', manager.managerList)
+    document.getElementById('main').innerHTML += manager.managerList;
 
-  engineerData.forEach( result => {
-    engineerCard += `
+  engineer.engineerData.forEach( result => {
+    engineer.engineerCard += `
       <div class="card" id="engineerCard" style="width: 18rem;">
       <div class="card-header">
           <h4 class="name">${result.name}</h4>
@@ -120,15 +125,15 @@ function sortCards(){
         </ul>
       </div>
     </div>`
-    engineerList.push(engineerCard);
+    engineer.engineerList.push(engineer.engineerCard);
   });
     //handles bug of duplicate cards of the first element in array
-    engineerList.splice(0,1)
-    console.log('[ENGINEER LIST]', engineerList)
-    document.getElementById('main').innerHTML += engineerList;
+    engineer.engineerList.splice(0,1)
+    console.log('[ENGINEER LIST]', engineer.engineerList)
+    document.getElementById('main').innerHTML += engineer.engineerList;
 
-    internData.forEach(result => {
-      internCard += ` 
+    intern.internData.forEach(result => {
+      intern.internCard += ` 
       <div class="card" id="internCard" style="width: 18rem;">
         <div class="card-header">
             <h4 class="name">${result.name}</h4>
@@ -143,12 +148,12 @@ function sortCards(){
         </div>
       </div>`
 
-      internList.push(internCard);
+      intern.internList.push(intern.internCard);
     });
     //handles bug of duplicate cards of the first element in array
-      internList.splice(0,1)
-      console.log('[INTERN LIST]', internList)
-      document.getElementById('main').innerHTML += internList;
+      intern.internList.splice(0,1)
+      console.log('[INTERN LIST]', intern.internList)
+      document.getElementById('main').innerHTML += intern.internList;
       
 
       
