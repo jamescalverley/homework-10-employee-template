@@ -258,7 +258,7 @@ async function renderCards( teamData ){
     //console.log('[INTERN DATA]', intern.internData)
 
     manager.managerData.forEach(result => {
-        manager.managerCard += `
+        manager.managerCard = `
           <div class="card" id="managerCard" style="width: 18rem;">
             <div class="card-header">
                 <h4 class="name">${result.name}</h4>
@@ -275,12 +275,11 @@ async function renderCards( teamData ){
 
           manager.managerList.push(manager.managerCard);
         });
-        //console.log('[MANAGER LIST]', manager.managerList);
         manager.managerList.forEach(result => {
             htmlMain += result });
         
     engineer.engineerData.forEach( result => {
-        engineer.engineerCard += `
+        engineer.engineerCard = `
             <div class="card" id="engineerCard" style="width: 18rem;">
             <div class="card-header">
                 <h4 class="name">${result.name}</h4>
@@ -296,9 +295,7 @@ async function renderCards( teamData ){
             </div>`
             engineer.engineerList.push(engineer.engineerCard);
         });
-         //handles bug of duplicate cards of the first element in array
-        engineer.engineerList.splice(0,1);
-        //console.log('[ENGINEER LIST]', engineer.engineerList);
+         
         engineer.engineerList.forEach(result => {
             htmlMain += result });
 
