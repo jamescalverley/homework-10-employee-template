@@ -303,7 +303,7 @@ async function renderCards( teamData ){
             htmlMain += result });
 
     intern.internData.forEach( result => {
-        intern.internCard += ` 
+        intern.internCard = ` 
             <div class="card" id="internCard" style="width: 18rem;">
                 <div class="card-header">
                     <h4 class="name">${result.name}</h4>
@@ -319,10 +319,11 @@ async function renderCards( teamData ){
             </div>`
             intern.internList.push(intern.internCard);
         });
-        intern.internList.splice(0,1);
-        console.log('[INTERN LIST]', intern.internList);
+        
         intern.internList.forEach(result => {
+            console.log(result)
             htmlMain += result });
+        
         
 }; 
 
@@ -376,7 +377,7 @@ async function main(){
     // await renderCards( employeeList );
     await renderCards( testData )
     await buildHTML();
-    // await writeFile();
+    //await writeFile();
 };
 
 
