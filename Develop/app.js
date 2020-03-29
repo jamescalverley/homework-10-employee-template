@@ -272,7 +272,6 @@ async function renderCards( teamData ){
               </ul>
             </div>
           </div>`
-
           manager.managerList.push(manager.managerCard);
         });
         manager.managerList.forEach(result => {
@@ -295,7 +294,6 @@ async function renderCards( teamData ){
             </div>`
             engineer.engineerList.push(engineer.engineerCard);
         });
-         
         engineer.engineerList.forEach(result => {
             htmlMain += result });
 
@@ -316,12 +314,9 @@ async function renderCards( teamData ){
             </div>`
             intern.internList.push(intern.internCard);
         });
-        
         intern.internList.forEach(result => {
             console.log(result)
-            htmlMain += result });
-        
-        
+            htmlMain += result });     
 }; 
 
 let htmlHead = `
@@ -369,12 +364,12 @@ async function writeFile( htmlFile){
 };
 
 async function main(){
-    // await getManagerInfo(1);
-    // await addEmployees();
-    // await renderCards( employeeList );
-    await renderCards( testData )
+    await getManagerInfo(1);
+    await addEmployees();
+    await renderCards( employeeList );
+    //await renderCards( testData )
     await buildHTML();
-    //await writeFile();
+   
 };
 
 
