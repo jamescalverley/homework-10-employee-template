@@ -1,20 +1,4 @@
 
-// * create classes for each employee type
-// * ask questions with inquier
-// * use the answers from inquier to assign to the classes
-// * create html templates with bootstrap cards
-// * add new cards to html pages for each employee added
-// * use ul and li for the information in the employee cards
-// * to add everything to index.html >>> at {{team}} element and then pass all cards into teamObj that will pass in the html to add to the index.html page
-// ? use map function on array >> have an array of objects >>> each object is an employee >>>> go through the array and forEach object, join to template
-// ? look at hot restaurant exercise for how to add dynamically add content to html section
-// ! TDD is a bonus but not necessary
-//! look at Handlebars activity for adding content to html templates
-
- 
-
-// ---------------------------
-
 const inquirer = require("inquirer");
 const fs = require("fs");
 
@@ -53,10 +37,6 @@ class Intern extends Employee {
     }
 };
 
-
-//* FUNCTIONS FOR GETTING INFO ==================
-//? need to add in loop that takes the required number of employees and runs the loop that many times
-
 async function getManagerInfo( runTimes ){
     let num = 0;
     while( num < runTimes){
@@ -84,7 +64,6 @@ async function getManagerInfo( runTimes ){
         console.log("Employee List", employeeList)
     };
 };
-
 
 async function getEngineerInfo( runTimes ){
     let num = 0;
@@ -187,38 +166,221 @@ async function addEmployees(){
         await getInternInfo( numInterns );
         await addEmployees();
     } 
+    return employeeList
 };
 
-async function writeFile(){
-    let writeFile = fs.writeFileSync("team.json", JSON.stringify(employeeList));
+const testData = [
+    {
+      id: 1,
+      name: "Elon Musk",
+      role: "Manager",
+      email: "elon@gmail.com",
+      officeNumber: "234"
+    },
+    {
+      id:2,
+      name: "Barrack Obama",
+      role: "Engineer",
+      email: "barrack@obama.com",
+      gitHub: "obama44"
+    },
+    {
+      id:3,
+      name: "Mike Babcock",
+      role: "Engineer",
+      email: "babs@gmail.com",
+      gitHub: "babbycock"
+    },
+    {
+      id:4,
+      name: "INTERN 1", 
+      role: "Intern",
+      email: "branson@gmail.com",
+      school: "Harvard"
+    },
+    {
+      id:5,
+      name: "INTERN 2", 
+      role: "Intern",
+      email: "dubbie@gmail.com",
+      school: "UofT"
+    },
+    {
+        id:6,
+        name: "INTERN 3", 
+        role: "Intern",
+        email: "dubbie@gmail.com",
+        school: "UofT"
+    },
+    {
+        id:7,
+        name: "INTERN 4", 
+        role: "Intern",
+        email: "dubbie@gmail.com",
+        school: "UofT"
+      }
+];
 
+  let manager = {
+    managerData: [],
+    managerCard: '',
+    managerList: []
+  };
+  
+  let engineer = {
+    engineerData: [],
+    engineerCard: '',
+    engineerList: []
+  };
+  
+  let intern = {
+    internData: [],
+    internCard: '',
+    internList: []
+  };
+
+async function renderCards( teamData ){
+    //console.log('[PASS IN]', teamData)
+    teamData.forEach( result => {
+        if( result.role == 'Manager'){
+            //console.log(`Manager: ${result.name}`)
+            manager.managerData.push(result); 
+        } if( result.role == 'Engineer'){
+            //console.log(`Engineer: ${result.name}`) 
+            engineer.engineerData.push(result);
+        } if( result.role == 'Intern'){
+            //console.log(`Intern: ${result.name}`) 
+            intern.internData.push(result)
+        } 
+    });
+    //console.log('[MANAGER DATA]', manager.managerData)
+    //console.log('[ENGINEER DATA]', engineer.engineerData)
+    //console.log('[INTERN DATA]', intern.internData)
+
+    manager.managerData.forEach(result => {
+        manager.managerCard += `
+          <div class="card" id="managerCard" style="width: 18rem;">
+            <div class="card-header">
+                <h4 class="name">${result.name}</h4>
+                <h5 class="title">Manager</h5>
+            </div>
+            <div class="card-body">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item id">ID: ${result.id}</li>
+                <li class="list-group-item email">Email: ${result.email}</li>
+                <li class="list-group-item officeNum">Office Number: ${result.officeNumber}</li>
+              </ul>
+            </div>
+          </div>`
+
+          manager.managerList.push(manager.managerCard);
+        });
+        //console.log('[MANAGER LIST]', manager.managerList);
+        manager.managerList.forEach(result => {
+            htmlMain += result });
+        
+    engineer.engineerData.forEach( result => {
+        engineer.engineerCard += `
+            <div class="card" id="engineerCard" style="width: 18rem;">
+            <div class="card-header">
+                <h4 class="name">${result.name}</h4>
+                <h5 class="title">Engineer</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                <li class="list-group-item id">ID: ${result.id}</li>
+                <li class="list-group-item email">Email: ${result.email}</li>
+                <li class="list-group-item github">Git Hub: ${result.gitHub}</li>
+                </ul>
+            </div>
+            </div>`
+            engineer.engineerList.push(engineer.engineerCard);
+        });
+         //handles bug of duplicate cards of the first element in array
+        engineer.engineerList.splice(0,1);
+        //console.log('[ENGINEER LIST]', engineer.engineerList);
+        engineer.engineerList.forEach(result => {
+            htmlMain += result });
+
+    intern.internData.forEach( result => {
+        intern.internCard += ` 
+            <div class="card" id="internCard" style="width: 18rem;">
+                <div class="card-header">
+                    <h4 class="name">${result.name}</h4>
+                    <h5 class="title">Intern</h5>
+                </div>
+                <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item id">ID: ${result.id}</li>
+                    <li class="list-group-item email">Email: ${result.email}</li>
+                    <li class="list-group-item school">School: ${result.school}</li>
+                </ul>
+                </div>
+            </div>`
+            intern.internList.push(intern.internCard);
+        });
+        intern.internList.splice(0,1);
+        console.log('[INTERN LIST]', intern.internList);
+        intern.internList.forEach(result => {
+            htmlMain += result });
+        
+}; 
+
+let htmlHead = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./html/style.css">
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <title>My Team</title>
+</head>`;
+
+let htmlHeader = `
+<body>
+    <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">My Team</h1>
+    </div>
+    </div>
+</body>
+`;
+
+let htmlMain = '<div id="main">';
+
+//closes html file
+let htmlEnd = `
+</div>
+</body>
+</html>`;
+
+let teamHTML = '';
+
+async function buildHTML(){
+    teamHTML = htmlHead + htmlHeader + htmlMain + htmlEnd;
+    //console.log("____HTML____", teamHTML)
+    writeFile( teamHTML );
 }
-
-async function mainFn(){
-    await getManagerInfo(1);
-    await addEmployees();
-    await writeFile();
-
-       
     
 
+async function writeFile( htmlFile){
+    let writeFileHTML = fs.writeFileSync("team.html", htmlFile);
+    let writeFile = fs.writeFileSync("team.json", JSON.stringify(employeeList));
 };
 
-//! prompt at the end if they want to add any more or if they are finished
+async function main(){
+    // await getManagerInfo(1);
+    // await addEmployees();
+    // await renderCards( employeeList );
+    await renderCards( testData )
+    await buildHTML();
+    // await writeFile();
+};
 
 
-mainFn();
-
-
-
-
-
-  
-
-//! NEXT STEPS: 
-// add new employees to an array
-// create new employees based on template
-// write team to a JSON file
+main();
 
 
 
