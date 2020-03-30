@@ -32,4 +32,4 @@ Through the command line, the user is prompted to provide the required informati
 Once all team members and information has been added, an html card is created for each member which is appended to a main html file. 
 
 ## Next Steps
-Currently, the app creates a JSON file rather than writing to a html file. This was done to save time. In the future the project will be finished to write everything to a html file. 
+Currently there is no way for the user to save the team they have created. In the future the app should be able to save all the team information to a database to be accessed later. 

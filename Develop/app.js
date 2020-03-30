@@ -4,9 +4,7 @@ const fs = require("fs");
 
 let ID = 1;
 let employeeList = [];
-
-
-//* CLASSES ====================
+ 
 class Employee {
     constructor( name, role, email ){
         this.id = ID++;
@@ -15,21 +13,18 @@ class Employee {
         this.email = email;
     }
 };
-
 class Manager extends Employee {
     constructor( name, email, officeNumber ){
         super(name, 'Manager', email);
         this.officeNumber = officeNumber;
     }
 };
-
 class Engineer extends Employee {
     constructor( name, email, gitHub ){
         super( name, 'Engineer', email )
         this.gitHub = gitHub;
     }
 };
-
 class Intern extends Employee {
     constructor ( name, email, school ){
         super( name, 'Intern', email )
@@ -121,7 +116,6 @@ async function getInternInfo( runTimes ){
     };
 };
 
-
 async function addEmployees(){
     const response = await inquirer.prompt([
         {
@@ -131,12 +125,10 @@ async function addEmployees(){
             choices: ['Engineer', 'Intern', '---FINISH---']
         }
     ]);
-
     let employeeType = response.employeeType;
     if(response.employeeType == "FINISH"){
         process.exit(0);
     };
-
     if( employeeType == "Engineer"){
         let response = await inquirer.prompt([
             {
@@ -169,70 +161,16 @@ async function addEmployees(){
     return employeeList
 };
 
-const testData = [
-    {
-      id: 1,
-      name: "Elon Musk",
-      role: "Manager",
-      email: "elon@gmail.com",
-      officeNumber: "234"
-    },
-    {
-      id:2,
-      name: "Barrack Obama",
-      role: "Engineer",
-      email: "barrack@obama.com",
-      gitHub: "obama44"
-    },
-    {
-      id:3,
-      name: "Mike Babcock",
-      role: "Engineer",
-      email: "babs@gmail.com",
-      gitHub: "babbycock"
-    },
-    {
-      id:4,
-      name: "INTERN 1", 
-      role: "Intern",
-      email: "branson@gmail.com",
-      school: "Harvard"
-    },
-    {
-      id:5,
-      name: "INTERN 2", 
-      role: "Intern",
-      email: "dubbie@gmail.com",
-      school: "UofT"
-    },
-    {
-        id:6,
-        name: "INTERN 3", 
-        role: "Intern",
-        email: "dubbie@gmail.com",
-        school: "UofT"
-    },
-    {
-        id:7,
-        name: "INTERN 4", 
-        role: "Intern",
-        email: "dubbie@gmail.com",
-        school: "UofT"
-      }
-];
-
   let manager = {
     managerData: [],
     managerCard: '',
     managerList: []
   };
-  
   let engineer = {
     engineerData: [],
     engineerCard: '',
     engineerList: []
   };
-  
   let intern = {
     internData: [],
     internCard: '',
@@ -243,20 +181,13 @@ async function renderCards( teamData ){
     //console.log('[PASS IN]', teamData)
     teamData.forEach( result => {
         if( result.role == 'Manager'){
-            //console.log(`Manager: ${result.name}`)
             manager.managerData.push(result); 
         } if( result.role == 'Engineer'){
-            //console.log(`Engineer: ${result.name}`) 
             engineer.engineerData.push(result);
         } if( result.role == 'Intern'){
-            //console.log(`Intern: ${result.name}`) 
             intern.internData.push(result)
         } 
     });
-    //console.log('[MANAGER DATA]', manager.managerData)
-    //console.log('[ENGINEER DATA]', engineer.engineerData)
-    //console.log('[INTERN DATA]', intern.internData)
-
     manager.managerData.forEach(result => {
         manager.managerCard = `
           <div class="card" id="managerCard" style="width: 18rem;">
@@ -356,7 +287,6 @@ async function buildHTML(){
     //console.log("____HTML____", teamHTML)
     writeFile( teamHTML );
 }
-    
 
 async function writeFile( htmlFile){
     let writeFileHTML = fs.writeFileSync("team.html", htmlFile);
@@ -367,12 +297,8 @@ async function main(){
     await getManagerInfo(1);
     await addEmployees();
     await renderCards( employeeList );
-    //await renderCards( testData )
     await buildHTML();
-   
 };
-
-
 main();
 
 
