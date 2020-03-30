@@ -246,7 +246,6 @@ async function renderCards( teamData ){
             intern.internList.push(intern.internCard);
         });
         intern.internList.forEach(result => {
-            console.log(result)
             htmlMain += result });     
 }; 
 
