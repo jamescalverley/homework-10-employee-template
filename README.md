@@ -36,7 +36,7 @@ Currently there is no way for the user to save the team they have created. In th
 
 ## Demo
 
-![demo](demo.gif)
+![demo](demo-2.gif)
 
 ## Output 
 
