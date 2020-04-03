@@ -37,3 +37,7 @@ Currently there is no way for the user to save the team they have created. In th
 ## Demo
 
 ![demo](demo.gif)
+
+## Output 
+
+![team](team-output.png)

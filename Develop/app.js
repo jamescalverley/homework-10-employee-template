@@ -55,8 +55,6 @@ async function getManagerInfo( runTimes ){
         num++
         let newManager = new Manager ( resp.name, resp.email, resp.officeNumber );
         employeeList.push(newManager);
-
-        console.log("Employee List", employeeList)
     };
 };
 
@@ -83,8 +81,6 @@ async function getEngineerInfo( runTimes ){
         num++
         let newEngineer = new Engineer ( resp.name, resp.email, resp.gitHub );
         employeeList.push(newEngineer);
-
-        console.log("Employee List", employeeList)
     };
 };
 
@@ -111,8 +107,6 @@ async function getInternInfo( runTimes ){
         num++
         let newIntern = new Intern ( resp.name, resp.email, resp.school );
         employeeList.push(newIntern);
-
-        console.log("Employee List", employeeList)
     };
 };
 
