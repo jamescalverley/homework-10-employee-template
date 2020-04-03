@@ -34,4 +34,4 @@ Once all team members and information has been added, an html card is created fo
 ## Next Steps
 Currently there is no way for the user to save the team they have created. In the future the app should be able to save all the team information to a database to be accessed later. 
 
-![](./assets/demo-gif.gif)
+![demo](../assets/demo-gif.gif)
